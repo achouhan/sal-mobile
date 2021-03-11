@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:SAL_App/UI/Models/Practioner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:SAL_App/Utils/styles.dart';
 
 class PractionerCard extends StatelessWidget {
-
   final kSmallFontColor = Color(0xFF445066);
 
-  Practioner practioner;
+  final Practioner practioner;
 
-  PractionerCard({ Key key,this.practioner}) : super(key: key);
+  PractionerCard({Key key, this.practioner}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

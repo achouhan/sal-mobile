@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:SAL_App/Providers/FiltersProvider.dart';
 import 'package:SAL_App/UI/Models/Practioner.dart';
 import 'package:SAL_App/UI/PractionersSearchResultsView.dart';
 import 'package:SAL_App/Utils/RoundedButton.dart';
 import 'package:SAL_App/Utils/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class FiltersView extends StatefulWidget {
   @override
@@ -11,58 +14,36 @@ class FiltersView extends StatefulWidget {
 }
 
 class _FiltersViewState extends State<FiltersView> {
-  // To Keep track of practioner type selected by user
-  Set<PractionerType> type = Set();
-
-  // List of possible topics(Hard coded for now)
-  final topics = [
-    'Anxiety Management',
-    'Stress - Work / Personal Relationship',
-    'Depression',
-    'Anger Management',
-    'Parenting',
-    'Teenage Tantrums',
-    'Grief / Trauma',
-    'Self-Improvement / Motivation',
-    'Life Coaching',
-    'Others'
-  ];
-
-  final languages = [
-    'English',
-    'Hindi',
-  ];
-
-  String selectedTopic;
-  String selectedLanguage;
   bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _HeaderRow(),
-          SizedBox(height: 16),
-          Row(
+    return Consumer<FiltersProvider>(builder: (context, provider, child) {
+      return Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _headerRow(),
+            SizedBox(height: 16),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                buildToggleButton(PractionerType.counsellor),
-                buildToggleButton(PractionerType.listener)
-              ]),
-          SizedBox(height: 16),
-          _topicSection(),
-          SizedBox(height: 16),
-          _advanceSection(),
-          SizedBox(height: 16),
-          _buttonSection()
-        ],
-      ),
-    );
+              children: FiltersProvider.getAllPractioners()
+                  .map((type) => buildToggleButton(type, provider))
+                  .toList(),
+            ),
+            SizedBox(height: 16),
+            _topicSection(provider),
+            SizedBox(height: 16),
+            _advanceSection(provider),
+            SizedBox(height: 16),
+            _buttonSection()
+          ],
+        ),
+      );
+    });
   }
 
   Row _buttonSection() {
@@ -80,8 +61,10 @@ class _FiltersViewState extends State<FiltersView> {
         child: RoundedButton(
           title: 'SEARCH',
           onPressed: () {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PractionersSearchResultsView()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PractionersSearchResultsView()));
           },
           color: kSalThemeColor,
           textColor: Colors.white,
@@ -90,7 +73,7 @@ class _FiltersViewState extends State<FiltersView> {
     ]);
   }
 
-  Container _topicSection() {
+  Container _topicSection(FiltersProvider provider) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,8 +90,7 @@ class _FiltersViewState extends State<FiltersView> {
           Container(
               height: 40,
               decoration: BoxDecoration(
-                  color:
-                      this.type.contains(type) ? kSalThemeColor : Colors.white,
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
@@ -119,18 +101,17 @@ class _FiltersViewState extends State<FiltersView> {
                   underline: Container(color: Colors.transparent),
                   hint: Text("Select Topic", style: fieldTextStyle()),
                   style: fieldTextStyle(),
-                  value: this.selectedTopic,
+                  value: provider.getTopic(),
                   icon: Icon(Icons.keyboard_arrow_down),
                   elevation: 8,
                   iconSize: 24,
-                  items: this
-                      .topics
+                  items: FiltersProvider.getAllTopics()
                       .map((value) =>
                           DropdownMenuItem(child: Text(value), value: value))
                       .toList(),
                   onChanged: (String newValue) {
                     setState(() {
-                      this.selectedTopic = newValue;
+                      provider.setTopic(newValue);
                     });
                   },
                 ),
@@ -140,7 +121,7 @@ class _FiltersViewState extends State<FiltersView> {
     );
   }
 
-  Widget _HeaderRow() {
+  Widget _headerRow() {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Expanded(
         child: Text(
@@ -161,22 +142,20 @@ class _FiltersViewState extends State<FiltersView> {
     ]);
   }
 
-  GestureDetector buildToggleButton(PractionerType type) {
+  GestureDetector buildToggleButton(
+      PractionerType type, FiltersProvider provider) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (this.type.contains(type)) {
-            this.type.remove(type);
-          } else {
-            this.type.add(type);
-          }
+          provider.setType(type);
         });
       },
       child: Container(
         width: 156,
         height: 40,
         decoration: BoxDecoration(
-            color: this.type.contains(type) ? kSalThemeColor : Colors.white,
+            color:
+                provider.types.contains(type) ? kSalThemeColor : Colors.white,
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: Center(
@@ -186,7 +165,7 @@ class _FiltersViewState extends State<FiltersView> {
                   textStyle: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                      color: this.type.contains(type)
+                      color: provider.types.contains(type)
                           ? Colors.white
                           : kGreytextColor))),
         ),
@@ -194,7 +173,7 @@ class _FiltersViewState extends State<FiltersView> {
     );
   }
 
-  Widget _advanceSection() {
+  Widget _advanceSection(FiltersProvider provider) {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
@@ -210,7 +189,11 @@ class _FiltersViewState extends State<FiltersView> {
             width: 24,
             height: 24,
           ),
-          children: [_languageSection(), SizedBox(height: 8), _dateSection()],
+          children: [
+            _languageSection(provider),
+            SizedBox(height: 8),
+            _dateSection()
+          ],
           onExpansionChanged: (bool expanded) {
             setState(() {
               this.isExpanded = expanded;
@@ -219,7 +202,7 @@ class _FiltersViewState extends State<FiltersView> {
     );
   }
 
-  Container _languageSection() {
+  Container _languageSection(FiltersProvider provider) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,8 +219,7 @@ class _FiltersViewState extends State<FiltersView> {
           Container(
               height: 40,
               decoration: BoxDecoration(
-                  color:
-                      this.type.contains(type) ? kSalThemeColor : Colors.white,
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
@@ -248,19 +230,16 @@ class _FiltersViewState extends State<FiltersView> {
                   underline: Container(color: Colors.transparent),
                   hint: Text("Select Language", style: fieldTextStyle()),
                   style: fieldTextStyle(),
-                  value: this.selectedLanguage,
+                  value: provider.getLanguage(),
                   icon: Icon(Icons.keyboard_arrow_down),
                   elevation: 8,
                   iconSize: 24,
-                  items: this
-                      .languages
+                  items: FiltersProvider.getAllLanguages()
                       .map((value) =>
                           DropdownMenuItem(child: Text(value), value: value))
                       .toList(),
                   onChanged: (String newValue) {
-                    setState(() {
-                      this.selectedLanguage = newValue;
-                    });
+                    provider.setLanguage(newValue);
                   },
                 ),
               ))
@@ -286,8 +265,7 @@ class _FiltersViewState extends State<FiltersView> {
           Container(
               height: 40,
               decoration: BoxDecoration(
-                  color:
-                      this.type.contains(type) ? kSalThemeColor : Colors.white,
+                  color: Colors.white,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
