@@ -1,11 +1,16 @@
 import 'package:SAL_App/Utils/styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:SAL_App/UI/PractionersView.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:SAL_App/Providers/FiltersProvider.dart';
 
 void main() {
-  //runApp(MyApp());
+   LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/LICENSE.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
   runApp(
       ChangeNotifierProvider(create: (_) => FiltersProvider(), child: MyApp()));
 }
