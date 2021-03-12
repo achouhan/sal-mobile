@@ -1,10 +1,18 @@
-import 'package:SAL_App/UI/PractionersSearchResultsView.dart';
 import 'package:SAL_App/Utils/styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:SAL_App/UI/PractionersView.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:SAL_App/Providers/FiltersProvider.dart';
 
 void main() {
-  runApp(MyApp());
+   LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/LICENSE.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+  runApp(
+      ChangeNotifierProvider(create: (_) => FiltersProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -54,6 +62,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+  final double iconWidth = 24;
+  final double iconHeight = 24;
 
   final List<Widget> _children = [
     Center(child: Text("Home")),
@@ -77,29 +87,37 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
           BottomNavigationBarItem(
               icon: Image.asset("icons/home.png",
-                  width: 24, height: 24, color: Colors.grey),
+                  width: this.iconWidth,
+                  height: this.iconHeight,
+                  color: Colors.grey),
               activeIcon: Image.asset("icons/home.png",
-                  width: 24, height: 24, color: kSalThemeColor),
+                  width: this.iconWidth,
+                  height: this.iconHeight,
+                  color: kSalThemeColor),
               label: "Home"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "icons/connect.png",
-                width: 24,
-                height: 24,
+                width: this.iconWidth,
+                height: this.iconHeight,
                 color: Colors.grey,
               ),
               activeIcon: Image.asset("icons/connect.png",
-                  width: 24, height: 24, color: kSalThemeColor),
+                  width: this.iconWidth,
+                  height: this.iconHeight,
+                  color: kSalThemeColor),
               label: "Connect"),
           BottomNavigationBarItem(
               icon: Image.asset(
                 "icons/explore.png",
-                width: 24,
-                height: 24,
+                width: this.iconWidth,
+                height: this.iconHeight,
                 color: Colors.grey,
               ),
               activeIcon: Image.asset("icons/explore.png",
-                  width: 24, height: 24, color: kSalThemeColor),
+                  width: this.iconWidth,
+                  height: this.iconHeight,
+                  color: kSalThemeColor),
               label: "Explore"),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: "More")
         ],

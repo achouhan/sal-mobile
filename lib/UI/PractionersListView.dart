@@ -5,9 +5,8 @@ import 'package:SAL_App/UI/PractionerCard.dart';
 import 'package:SAL_App/UI/PractionerDetailsView.dart';
 
 class PractionersListView extends StatefulWidget {
-
   final bool disableScrolling;
-  
+
   const PractionersListView({Key key, this.disableScrolling}) : super(key: key);
 
   @override
@@ -51,7 +50,9 @@ class _PractionersListViewState extends State<PractionersListView> {
                 // // Success case
                 return ListView.builder(
                     shrinkWrap: true,
-                    physics: (this.widget.disableScrolling == true) ? NeverScrollableScrollPhysics() : null,
+                    physics: (this.widget.disableScrolling == true)
+                        ? NeverScrollableScrollPhysics()
+                        : null,
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, idx) {
                       Practioner practioner = snapshot.data[idx];

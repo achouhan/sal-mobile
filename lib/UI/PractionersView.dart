@@ -1,3 +1,4 @@
+
 import 'package:SAL_App/UI/FiltersView.dart';
 import 'package:SAL_App/Utils/styles.dart';
 import 'package:SAL_App/UI/PractionersListView.dart';
@@ -10,7 +11,6 @@ class PractionersView extends StatefulWidget {
 }
 
 class PractionersViewState extends State<PractionersView> {
-  
   final ScrollController _scrollController = ScrollController();
   bool _showFilterButton = false;
   double _viewHeight = 0;
@@ -31,7 +31,6 @@ class PractionersViewState extends State<PractionersView> {
   @override
   Widget build(BuildContext context) {
     this._viewHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,

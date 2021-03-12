@@ -1,6 +1,8 @@
-import 'package:SAL_App/UI/PractionersListView.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:SAL_App/Utils/styles.dart';
+import 'package:SAL_App/Providers/FiltersProvider.dart';
+import 'package:SAL_App/UI/PractionersListView.dart';
 
 class PractionersSearchResultsView extends StatefulWidget {
   @override
@@ -8,9 +10,13 @@ class PractionersSearchResultsView extends StatefulWidget {
 }
 
 class PractionersViewState extends State<PractionersSearchResultsView> {
+  final double filterViewHeight = 60;
+  final double ySpacing = 8.0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Consumer<FiltersProvider>(builder: (context, provider, child) {
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -24,48 +30,41 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
         body: SafeArea(
             child: Column(children: [
           Container(
-            margin: EdgeInsets.all(8.0),
-            height: 60,
-            child: filterList(),
+            margin: EdgeInsets.all(ySpacing),
+            // height: this.filterViewHeight,
+            child: filterList(provider),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: ySpacing),
           Expanded(child: PractionersListView()),
         ])));
+    });
   }
 
-  // Returning mock data for now
-  Widget filterList() {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        _buildChip("Hello", kSalThemeColor),
-        SizedBox(width: 8),
-        _buildChip("Hello 1", kSalThemeColor),
-        SizedBox(width: 8),
-        _buildChip("Hello 2", kSalThemeColor),
-        SizedBox(width: 8),
-        _buildChip("Hello 3", kSalThemeColor),
-        SizedBox(width: 8),
-        _buildChip("Hello 4", kSalThemeColor),
-        SizedBox(width: 8),
-        _buildChip("Hello 5", kSalThemeColor),
-      ],
+  Widget filterList(FiltersProvider provider) {
+    List<Widget> childrens = List<Widget>();
+    provider.allFilterDisplayLabels().forEach((element) {
+      childrens.add(_buildPill(element, provider));
+      childrens.add(SizedBox(width: 8));
+    });
+
+    return Wrap(
+      children: childrens,
     );
   }
 
-  Widget _buildChip(String label, Color color) {
+  Widget _buildPill(String label, FiltersProvider provider) {
     return Chip(
         labelPadding: EdgeInsets.only(left: 2, right: 8, top: 2, bottom: 2),
         label: Text(
           label,
           style: kSmallWhiteTextStyle,
         ),
-        backgroundColor: color,
+        backgroundColor: kSalThemeColor,
         elevation: 6.0,
         deleteIcon: Image.asset("icons/cancel.png",
             width: 16, height: 16, color: Colors.white),
         onDeleted: () {
-          print("On Delete");
+            provider.delete(label);
         },
         padding: EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8));
   }
