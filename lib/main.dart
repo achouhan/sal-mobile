@@ -1,13 +1,13 @@
-import 'package:SAL_App/Utils/styles.dart';
+import 'package:sal_patient_client/utils/styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:SAL_App/UI/PractionersView.dart';
+import 'package:sal_patient_client/ui/practioners_view.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:SAL_App/Providers/FiltersProvider.dart';
+import 'package:sal_patient_client/providers/filters_provider.dart';
 
 void main() {
-   LicenseRegistry.addLicense(() async* {
+  LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/LICENSE.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });

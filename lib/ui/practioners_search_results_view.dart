@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:SAL_App/Utils/styles.dart';
-import 'package:SAL_App/Providers/FiltersProvider.dart';
-import 'package:SAL_App/UI/PractionersListView.dart';
+import 'package:sal_patient_client/utils/styles.dart';
+import 'package:sal_patient_client/providers/filters_provider.dart';
+import 'package:sal_patient_client/ui/practioners_list_view.dart';
 
 class PractionersSearchResultsView extends StatefulWidget {
   @override
@@ -17,26 +17,26 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
   Widget build(BuildContext context) {
     return Consumer<FiltersProvider>(builder: (context, provider, child) {
       return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
           backgroundColor: Colors.white,
-          elevation: 0.0,
-          bottomOpacity: 0.0,
-          title: Text("Search Results", style: kTitleTextStyle),
-        ),
-        body: SafeArea(
-            child: Column(children: [
-          Container(
-            margin: EdgeInsets.all(ySpacing),
-            // height: this.filterViewHeight,
-            child: filterList(provider),
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0.0,
+            bottomOpacity: 0.0,
+            title: Text("Search Results", style: kTitleTextStyle),
           ),
-          SizedBox(height: ySpacing),
-          Expanded(child: PractionersListView()),
-        ])));
+          body: SafeArea(
+              child: Column(children: [
+            Container(
+              margin: EdgeInsets.all(ySpacing),
+              // height: this.filterViewHeight,
+              child: filterList(provider),
+            ),
+            SizedBox(height: ySpacing),
+            Expanded(child: PractionersListView()),
+          ])));
     });
   }
 
@@ -64,7 +64,7 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
         deleteIcon: Image.asset("icons/cancel.png",
             width: 16, height: 16, color: Colors.white),
         onDeleted: () {
-            provider.delete(label);
+          provider.delete(label);
         },
         padding: EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8));
   }

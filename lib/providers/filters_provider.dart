@@ -1,5 +1,5 @@
-import 'package:SAL_App/UI/Models/Practioner.dart';
-import 'package:SAL_App/Utils/Utils.dart';
+import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class FiltersProvider extends ChangeNotifier {

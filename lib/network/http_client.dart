@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:SAL_App/UI/Models/Practioner.dart';
+import 'package:sal_patient_client/models/practioner.dart';
 
 class HttpClient {
   HttpClient._internal();
@@ -65,7 +65,7 @@ class HttpClient {
           "type": 1,
           "rating": 4.5
         },
-         {
+        {
           "id": "7",
           "name": "Dr. Snehal Mehta 2",
           "experience": "7 years experience",

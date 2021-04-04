@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:SAL_App/UI/Models/Practioner.dart';
+import 'package:sal_patient_client/models/practioner.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:SAL_App/Utils/styles.dart';
+import 'package:sal_patient_client/utils/styles.dart';
 
 class PractionerCard extends StatelessWidget {
   final kSmallFontColor = Color(0xFF445066);
