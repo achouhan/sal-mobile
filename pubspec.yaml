@@ -1,5 +1,5 @@
 name: sal_patient_client
-description: A Flutter mobile app for SAL users.
+description: A mobile app for SAL Patients.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
