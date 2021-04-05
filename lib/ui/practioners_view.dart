@@ -1,7 +1,6 @@
-
-import 'package:SAL_App/UI/FiltersView.dart';
-import 'package:SAL_App/Utils/styles.dart';
-import 'package:SAL_App/UI/PractionersListView.dart';
+import 'package:sal_patient_client/ui/filters_view.dart';
+import 'package:sal_patient_client/utils/styles.dart';
+import 'package:sal_patient_client/ui/practioners_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

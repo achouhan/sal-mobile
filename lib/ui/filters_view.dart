@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:SAL_App/Providers/FiltersProvider.dart';
-import 'package:SAL_App/UI/Models/Practioner.dart';
-import 'package:SAL_App/UI/PractionersSearchResultsView.dart';
-import 'package:SAL_App/Utils/RoundedButton.dart';
-import 'package:SAL_App/Utils/styles.dart';
-
+import 'package:sal_patient_client/providers/filters_provider.dart';
+import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/ui/practioners_search_results_view.dart';
+import 'package:sal_patient_client/utils/rounded_button.dart';
+import 'package:sal_patient_client/utils/styles.dart';
 
 class FiltersView extends StatefulWidget {
   @override

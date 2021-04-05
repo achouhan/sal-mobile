@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:SAL_App/UI/Models/Practioner.dart';
-import 'package:SAL_App/Network/HttpClient.dart';
-import 'package:SAL_App/UI/PractionerCard.dart';
-import 'package:SAL_App/UI/PractionerDetailsView.dart';
+import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/network/http_client.dart';
+import 'package:sal_patient_client/ui/practioner_card.dart';
+import 'package:sal_patient_client/ui/practioner_details_view.dart';
 
 class PractionersListView extends StatefulWidget {
   final bool disableScrolling;
@@ -35,7 +35,7 @@ class _PractionersListViewState extends State<PractionersListView> {
           builder: (context, AsyncSnapshot<List<Practioner>> snapshot) {
             assert(context != null);
             switch (snapshot.connectionState) {
-              case ConnectionState.none:
+              case ConnectionState.none: continue;
               case ConnectionState.waiting:
               case ConnectionState.active:
                 return Center(child: CircularProgressIndicator());

@@ -1,5 +1,4 @@
 class Utils {
-  
   static String describeEnum(Object enumEntry) {
     final String description = enumEntry.toString();
     final int indexOfDot = description.indexOf('.');
