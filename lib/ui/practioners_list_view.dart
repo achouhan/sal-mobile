@@ -35,7 +35,7 @@ class _PractionersListViewState extends State<PractionersListView> {
           builder: (context, AsyncSnapshot<List<Practioner>> snapshot) {
             assert(context != null);
             switch (snapshot.connectionState) {
-              case ConnectionState.none: continue;
+              case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
                 return Center(child: CircularProgressIndicator());

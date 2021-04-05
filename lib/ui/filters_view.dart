@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
 import 'package:sal_patient_client/models/practioner.dart';
 import 'package:sal_patient_client/ui/practioners_search_results_view.dart';
 import 'package:sal_patient_client/utils/rounded_button.dart';
-import 'package:sal_patient_client/utils/styles.dart';
 
 class FiltersView extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _FiltersViewState extends State<FiltersView> {
           title: 'CLEAR',
           onPressed: () {},
           color: Colors.white,
-          textColor: kGreytextColor,
+          textColor: SalColors.grey,
         ),
       ),
       SizedBox(width: 8),
@@ -65,7 +65,7 @@ class _FiltersViewState extends State<FiltersView> {
                 MaterialPageRoute(
                     builder: (context) => PractionersSearchResultsView()));
           },
-          color: kSalThemeColor,
+          color: SalColors.blue,
           textColor: Colors.white,
         ),
       )
@@ -83,14 +83,14 @@ class _FiltersViewState extends State<FiltersView> {
                 textStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF0066B3))),
+                    color: SalColors.blue)),
           ),
           SizedBox(height: 12),
           Container(
               height: 40,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: SalColors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -129,11 +129,11 @@ class _FiltersViewState extends State<FiltersView> {
               textStyle: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF0066B3))),
+                  color: SalColors.blue)),
         ),
       ),
       Image.asset(
-        "icons/information.png",
+        "assets/images/information.png",
         width: 24,
         height: 24,
       ),
@@ -154,8 +154,8 @@ class _FiltersViewState extends State<FiltersView> {
         height: 40,
         decoration: BoxDecoration(
             color:
-                provider.types.contains(type) ? kSalThemeColor : Colors.white,
-            border: Border.all(color: Colors.grey),
+                provider.types.contains(type) ? SalColors.blue : Colors.white,
+            border: Border.all(color: SalColors.grey),
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: Center(
           child: Text(
@@ -166,7 +166,7 @@ class _FiltersViewState extends State<FiltersView> {
                       fontWeight: FontWeight.normal,
                       color: provider.types.contains(type)
                           ? Colors.white
-                          : kGreytextColor))),
+                          : SalColors.grey))),
         ),
       ),
     );
@@ -181,10 +181,12 @@ class _FiltersViewState extends State<FiltersView> {
                   textStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black))),
+                      color: SalColors.black))),
           tilePadding: EdgeInsets.only(left: 0.0),
           trailing: Image.asset(
-            this.isExpanded ? "icons/minimize.png" : "icons/expand.png",
+            this.isExpanded
+                ? "assets/images/minimize.png"
+                : "assets/images/expand.png",
             width: 24,
             height: 24,
           ),
@@ -212,14 +214,14 @@ class _FiltersViewState extends State<FiltersView> {
                 textStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF0066B3))),
+                    color: SalColors.blue)),
           ),
           SizedBox(height: 12),
           Container(
               height: 40,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: SalColors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -258,14 +260,14 @@ class _FiltersViewState extends State<FiltersView> {
                 textStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF0066B3))),
+                    color: SalColors.blue)),
           ),
           SizedBox(height: 12),
           Container(
               height: 40,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: SalColors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -286,6 +288,6 @@ class _FiltersViewState extends State<FiltersView> {
   TextStyle fieldTextStyle() {
     return GoogleFonts.openSans(
         textStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w400, color: kGreytextColor));
+            fontSize: 14, fontWeight: FontWeight.w400, color: SalColors.grey));
   }
 }
