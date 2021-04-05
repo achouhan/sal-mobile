@@ -70,7 +70,7 @@ class FiltersProvider extends ChangeNotifier {
 
   // Returns display labels for all filter
   List<String> allFilterDisplayLabels() {
-    var displayLabels = List<String>();
+    List<String> displayLabels = [];
 
     // Add types first
     this.types.forEach((element) {
