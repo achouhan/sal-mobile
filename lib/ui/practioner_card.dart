@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/models/practioner.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sal_patient_client/utils/styles.dart';
 
 class PractionerCard extends StatelessWidget {
-  final kSmallFontColor = Color(0xFF445066);
-
   final Practioner practioner;
 
   PractionerCard({Key key, this.practioner}) : super(key: key);
@@ -24,7 +22,7 @@ class PractionerCard extends StatelessWidget {
                 width: 84,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: Colors.grey),
+                    color: SalColors.grey),
               ),
               Positioned(
                   bottom: 0,
@@ -47,7 +45,7 @@ class PractionerCard extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       color: Colors.white))),
                           Image.asset(
-                            "icons/rating.png",
+                            "assets/images/rating.png",
                             width: 16,
                             height: 16,
                             fit: BoxFit.fill,
@@ -67,7 +65,7 @@ class PractionerCard extends StatelessWidget {
                           textStyle: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
-                              color: kSalThemeColor))),
+                              color: SalColors.blue))),
                   SizedBox(height: 2),
                   Row(
                     children: [
@@ -76,14 +74,14 @@ class PractionerCard extends StatelessWidget {
                               textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: kSmallFontColor))),
+                                  color: SalColors.steelGrey))),
                       SizedBox(width: 16),
                       Text('Rs ${practioner.fee}',
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: kSmallFontColor))),
+                                  color: SalColors.steelGrey))),
                     ],
                   ),
                   SizedBox(height: 4),
@@ -93,7 +91,7 @@ class PractionerCard extends StatelessWidget {
                           textStyle: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
-                              color: kSmallFontColor))),
+                              color: SalColors.steelGrey))),
                 ],
               ),
             ),

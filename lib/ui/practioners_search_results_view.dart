@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/utils/styles.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
 import 'package:sal_patient_client/ui/practioners_list_view.dart';
@@ -20,7 +21,7 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             iconTheme: IconThemeData(
-              color: Colors.black,
+              color: SalColors.black,
             ),
             backgroundColor: Colors.white,
             elevation: 0.0,
@@ -41,7 +42,7 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
   }
 
   Widget filterList(FiltersProvider provider) {
-    List<Widget> childrens = List<Widget>();
+    List<Widget> childrens = [];
     provider.allFilterDisplayLabels().forEach((element) {
       childrens.add(_buildPill(element, provider));
       childrens.add(SizedBox(width: 8));
@@ -59,9 +60,9 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
           label,
           style: kSmallWhiteTextStyle,
         ),
-        backgroundColor: kSalThemeColor,
+        backgroundColor: SalColors.blue,
         elevation: 6.0,
-        deleteIcon: Image.asset("icons/cancel.png",
+        deleteIcon: Image.asset("assets/images/cancel.png",
             width: 16, height: 16, color: Colors.white),
         onDeleted: () {
           provider.delete(label);
