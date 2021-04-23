@@ -71,8 +71,12 @@ class _PractionersListViewState extends State<PractionersListView> {
   InkWell buildCard(Practioner practioner) {
     return InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PractionerDetailsView()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PractionerDetailsView(
+                        practioner: practioner,
+                      )));
         },
         child: PractionerCard(practioner: practioner));
   }
