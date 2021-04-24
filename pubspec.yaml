@@ -12,6 +12,7 @@ dependencies:
 
   google_fonts: ^1.1.2
   provider: ^4.3.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -38,4 +39,4 @@ flutter:
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
