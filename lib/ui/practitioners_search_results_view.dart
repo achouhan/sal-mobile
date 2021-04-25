@@ -4,12 +4,12 @@ import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
 import 'package:sal_patient_client/ui/practitioners_list_view.dart';
 
-class PractitionersSearchResultsWidget extends StatefulWidget {
+class PractitionersSearchResultsView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => PractitionersWidgetState();
+  State<StatefulWidget> createState() => PractitionersViewState();
 }
 
-class PractitionersWidgetState extends State<PractitionersSearchResultsWidget> {
+class PractitionersViewState extends State<PractitionersSearchResultsView> {
   final double filterWidgetHeight = 60;
   final double ySpacing = 8.0;
 
@@ -35,7 +35,7 @@ class PractitionersWidgetState extends State<PractitionersSearchResultsWidget> {
               child: filterList(provider),
             ),
             SizedBox(height: ySpacing),
-            Expanded(child: PractitionersListWidget()),
+            Expanded(child: PractitionersListView()),
           ])));
     });
   }

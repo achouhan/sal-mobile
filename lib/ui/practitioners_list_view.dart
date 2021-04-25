@@ -4,18 +4,17 @@ import 'package:sal_patient_client/network/http_client.dart';
 import 'package:sal_patient_client/ui/practitioner_card_view.dart';
 import 'package:sal_patient_client/ui/practitioner_details_view.dart';
 
-class PractitionersListWidget extends StatefulWidget {
+class PractitionersListView extends StatefulWidget {
   final bool disableScrolling;
 
-  const PractitionersListWidget({Key key, this.disableScrolling})
+  const PractitionersListView({Key key, this.disableScrolling})
       : super(key: key);
 
   @override
-  _PractitionersListWidgetState createState() =>
-      _PractitionersListWidgetState();
+  _PractitionersListViewState createState() => _PractitionersListViewState();
 }
 
-class _PractitionersListWidgetState extends State<PractitionersListWidget> {
+class _PractitionersListViewState extends State<PractitionersListView> {
   // Constants
   final xPaddding = 16.0;
   final yPaddding = 4.0;
@@ -76,7 +75,7 @@ class _PractitionersListWidgetState extends State<PractitionersListWidget> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PractitionerDetailsWidget(
+                  builder: (context) => PractitionerDetailsView(
                         practitioner: practitioner,
                       )));
         },

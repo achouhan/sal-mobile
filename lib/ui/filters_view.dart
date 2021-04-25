@@ -7,12 +7,12 @@ import 'package:sal_patient_client/models/practitioner.dart';
 import 'package:sal_patient_client/ui/practitioners_search_results_view.dart';
 import 'package:sal_patient_client/utils/rounded_button.dart';
 
-class FiltersWidget extends StatefulWidget {
+class FiltersView extends StatefulWidget {
   @override
-  _FiltersWidgetState createState() => _FiltersWidgetState();
+  _FiltersViewState createState() => _FiltersViewState();
 }
 
-class _FiltersWidgetState extends State<FiltersWidget> {
+class _FiltersViewState extends State<FiltersView> {
   bool isExpanded = false;
 
   @override
@@ -63,7 +63,7 @@ class _FiltersWidgetState extends State<FiltersWidget> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PractitionersSearchResultsWidget()));
+                    builder: (context) => PractitionersSearchResultsView()));
           },
           color: SalColors.blue,
           textColor: Colors.white,

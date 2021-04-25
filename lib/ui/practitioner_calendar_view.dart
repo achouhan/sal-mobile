@@ -8,18 +8,17 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'availability_times_grid_view.dart';
 
-class PractitionerCalendarWidget extends StatefulWidget {
+class PractitionerCalendarView extends StatefulWidget {
   final Practitioner practitioner;
-  const PractitionerCalendarWidget({Key key, this.practitioner})
+  const PractitionerCalendarView({Key key, this.practitioner})
       : super(key: key);
 
   @override
-  _PractitionerCalendarWidgetState createState() =>
-      _PractitionerCalendarWidgetState();
+  _PractitionerCalendarViewState createState() =>
+      _PractitionerCalendarViewState();
 }
 
-class _PractitionerCalendarWidgetState
-    extends State<PractitionerCalendarWidget> {
+class _PractitionerCalendarViewState extends State<PractitionerCalendarView> {
   // TODO: Ideally this should be set to the first availability day of the practitioner
   var _currentDate = DateTime.now();
   DateTime _selectedTime;

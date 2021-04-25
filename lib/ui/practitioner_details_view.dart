@@ -9,17 +9,16 @@ import 'package:sal_patient_client/ui/practitioner_reviews_list_view.dart';
 
 import 'practitioners_overview_view.dart';
 
-class PractitionerDetailsWidget extends StatefulWidget {
+class PractitionerDetailsView extends StatefulWidget {
   final Practitioner practitioner;
-  const PractitionerDetailsWidget({Key key, this.practitioner})
-      : super(key: key);
+  const PractitionerDetailsView({Key key, this.practitioner}) : super(key: key);
 
   @override
-  _PractitionerDetailsWidgetState createState() =>
-      _PractitionerDetailsWidgetState();
+  _PractitionerDetailsViewState createState() =>
+      _PractitionerDetailsViewState();
 }
 
-class _PractitionerDetailsWidgetState extends State<PractitionerDetailsWidget>
+class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
@@ -68,7 +67,7 @@ class _PractitionerDetailsWidgetState extends State<PractitionerDetailsWidget>
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: SalColors.blue))),
-            _buildRatingWidget(),
+            _buildRatingView(),
             SizedBox(height: 8),
             Container(
               height: 44,
@@ -97,7 +96,7 @@ class _PractitionerDetailsWidgetState extends State<PractitionerDetailsWidget>
         ));
   }
 
-  Row _buildRatingWidget() {
+  Row _buildRatingView() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -134,7 +133,8 @@ class _PractitionerDetailsWidgetState extends State<PractitionerDetailsWidget>
       width: _width,
       child: Stack(
         children: [
-          Container(height: _height, width: _width, child: SalBannerWidget()),
+          Container(
+              height: _height, width: _width, child: SalThemeBannerView()),
           Positioned(
               top: (_height - 100) / 2,
               left: (_width - 100) / 2,
@@ -182,7 +182,7 @@ class _PractitionerDetailsWidgetState extends State<PractitionerDetailsWidget>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PractitionerCalendarWidget(
+                          builder: (context) => PractitionerCalendarView(
                                 practitioner: this.widget.practitioner,
                               )));
                 },

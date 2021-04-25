@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
 
-class PractitionersWidget extends StatefulWidget {
+class PractitionersView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => PractitionersWidgetState();
+  State<StatefulWidget> createState() => PractitionersViewState();
 }
 
-class PractitionersWidgetState extends State<PractitionersWidget> {
+class PractitionersViewState extends State<PractitionersView> {
   final ScrollController _scrollController = ScrollController();
   bool _showFilterButton = false;
   double _widgetHeight = 0;
@@ -17,7 +17,7 @@ class PractitionersWidgetState extends State<PractitionersWidget> {
   @override
   void initState() {
     super.initState();
-    setupScrollWidgetController();
+    setupScrollViewController();
   }
 
   @override
@@ -51,12 +51,12 @@ class PractitionersWidgetState extends State<PractitionersWidget> {
         ),
         body: SafeArea(
             child: ListView(controller: this._scrollController, children: [
-          FiltersWidget(),
-          PractitionersListWidget(disableScrolling: true)
+          FiltersView(),
+          PractitionersListView(disableScrolling: true)
         ])));
   }
 
-  void setupScrollWidgetController() async {
+  void setupScrollViewController() async {
     this._scrollController.addListener(() {
       if (this._scrollController.position.userScrollDirection ==
               ScrollDirection.reverse &&

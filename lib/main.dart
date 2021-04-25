@@ -43,7 +43,7 @@ class _SALAppPageState extends State<SALAppPage> {
 
   final List<Widget> _children = [
     Center(child: Text("Home")),
-    PractitionersWidget(),
+    PractitionersView(),
     Center(child: Text("Explore")),
     Center(child: Text("More"))
   ];
