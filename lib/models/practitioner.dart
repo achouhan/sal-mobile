@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'Review.dart';
+import 'review.dart';
 
-// Type enum representing the practioner type.
-enum PractionerType { none, counsellor, therapist, listener }
+// Type enum representing the practitioner type.
+enum PractitionerType { none, counsellor, therapist, listener }
 
-// Practioner class
-class Practioner {
+// Practitioner class
+class Practitioner {
   final String id;
   final String name;
-  final PractionerType type;
+  final PractitionerType type;
   final String experience;
   final String aboutMe;
   final int fee;
@@ -17,31 +17,31 @@ class Practioner {
   final List<dynamic> speciality;
   final List<dynamic> languages;
 
-  Practioner(this.id, this.name, this.type, this.experience, this.aboutMe,
+  Practitioner(this.id, this.name, this.type, this.experience, this.aboutMe,
       this.fee, this.rating, this.speciality, this.languages);
 
   String typeToString() {
     String value;
     switch (this.type) {
-      case PractionerType.none:
+      case PractitionerType.none:
         value = "Unknown";
         break;
-      case PractionerType.counsellor:
+      case PractitionerType.counsellor:
         value = "Counsellor";
         break;
-      case PractionerType.therapist:
+      case PractitionerType.therapist:
         value = "Threapist";
         break;
-      case PractionerType.listener:
+      case PractitionerType.listener:
         value = "Listener";
         break;
     }
     return value;
   }
 
-  static Practioner fromJson(String jsonString) {
+  static Practitioner fromJson(String jsonString) {
     final Map<String, dynamic> data = jsonDecode(jsonString);
-    return Practioner(
+    return Practitioner(
         data['id'],
         data['name'],
         data['type'],
@@ -53,15 +53,15 @@ class Practioner {
         data['languages']);
   }
 
-  // Return list of practioner
-  static List<Practioner> fromJsonArray(String jsonString) {
-    final Iterable<dynamic> data = jsonDecode(jsonString)['practioners'];
+  // Return list of practitioner
+  static List<Practitioner> fromJsonArray(String jsonString) {
+    final Iterable<dynamic> data = jsonDecode(jsonString)['practitioners'];
 
     return data
-        .map<Practioner>((dynamic value) => Practioner(
+        .map<Practitioner>((dynamic value) => Practitioner(
             value['id'],
             value['name'],
-            PractionerType.values[value['type']],
+            PractitionerType.values[value['type']],
             value['experience'],
             value['about'],
             value['fee'],

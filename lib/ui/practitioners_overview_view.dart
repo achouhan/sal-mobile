@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
-import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
 
-import 'ExpandableText.dart';
+import '../utils/expandable_text.dart';
 
-class PractionerOverview extends StatelessWidget {
-  final Practioner practioner;
+class PractitionerOverview extends StatelessWidget {
+  final Practitioner practitioner;
 
-  const PractionerOverview({Key key, this.practioner}) : super(key: key);
+  const PractitionerOverview({Key key, this.practitioner}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +27,20 @@ class PractionerOverview extends StatelessWidget {
           Container(
               width: 355,
               child:
-                  ExpandableText(maxLines: 3, text: this.practioner.aboutMe)),
+                  ExpandableText(maxLines: 3, text: this.practitioner.aboutMe)),
           // Exp section
           SizedBox(height: 20),
-          _buildInformationSection('Experience', this.practioner.experience),
+          _buildInformationSection('Experience', this.practitioner.experience),
 
           // Speciality section
           SizedBox(height: 20),
           _buildInformationSection(
-              'Speciality', this.practioner.speciality.join(", ")),
+              'Speciality', this.practitioner.speciality.join(", ")),
 
           // Language section
           SizedBox(height: 20),
           _buildInformationSection(
-              'Language', this.practioner.languages.join(", ")),
+              'Language', this.practitioner.languages.join(", ")),
         ]),
       ),
     );

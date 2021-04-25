@@ -1,10 +1,10 @@
-import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
 import 'package:sal_patient_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class FiltersProvider extends ChangeNotifier {
   final filters = Map<String, dynamic>();
-  final types = Set<PractionerType>();
+  final types = Set<PractitionerType>();
 
   // List of possible topics(Hard coded for now)
   static final _topics = [
@@ -26,10 +26,10 @@ class FiltersProvider extends ChangeNotifier {
     'Hindi',
   ];
 
-  // List of all practioners
-  static final _practionerTypes = [
-    PractionerType.counsellor,
-    PractionerType.listener,
+  // List of all practitioners
+  static final _practitionerTypes = [
+    PractitionerType.counsellor,
+    PractitionerType.listener,
   ];
 
   dynamic filter(String key) => this.filters[key];
@@ -37,7 +37,7 @@ class FiltersProvider extends ChangeNotifier {
   void _addfilter(String key, dynamic value) => this.filters[key] = value;
 
   void delete(String filterValue) {
-    PractionerType matchedType;
+    PractitionerType matchedType;
 
     // Check type first
     for (var type in this.types) {
@@ -96,8 +96,8 @@ class FiltersProvider extends ChangeNotifier {
   // Set topic
   void setTopic(String topic) => this._addfilter('topic', topic);
 
-  // Set practioner types
-  void setType(PractionerType type) {
+  // Set practitioner types
+  void setType(PractitionerType type) {
     if (this.types.contains(type)) {
       this.types.remove(type);
     } else {
@@ -111,6 +111,6 @@ class FiltersProvider extends ChangeNotifier {
   // All languages
   static List<String> getAllLanguages() => _languages;
 
-  // All practioners
-  static List<PractionerType> getAllPractioners() => _practionerTypes;
+  // All practitioners
+  static List<PractitionerType> getAllPractitioners() => _practitionerTypes;
 }

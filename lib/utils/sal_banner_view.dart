@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
 
-class CustomBackgroundView extends StatelessWidget {
+class SalBannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(painter: BackgroundPainter());

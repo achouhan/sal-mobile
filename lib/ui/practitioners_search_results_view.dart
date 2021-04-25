@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
-import 'package:sal_patient_client/utils/styles.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
-import 'package:sal_patient_client/ui/practioners_list_view.dart';
+import 'package:sal_patient_client/ui/practitioners_list_view.dart';
 
-class PractionersSearchResultsView extends StatefulWidget {
+class PractitionersSearchResultsWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => PractionersViewState();
+  State<StatefulWidget> createState() => PractitionersWidgetState();
 }
 
-class PractionersViewState extends State<PractionersSearchResultsView> {
-  final double filterViewHeight = 60;
+class PractitionersWidgetState extends State<PractitionersSearchResultsWidget> {
+  final double filterWidgetHeight = 60;
   final double ySpacing = 8.0;
 
   @override
@@ -26,17 +25,17 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
             backgroundColor: Colors.white,
             elevation: 0.0,
             bottomOpacity: 0.0,
-            title: Text("Search Results", style: kTitleTextStyle),
+            title: Text("Search Results", style: SalStyles.titleTextStyle),
           ),
           body: SafeArea(
               child: Column(children: [
             Container(
               margin: EdgeInsets.all(ySpacing),
-              // height: this.filterViewHeight,
+              // height: this.filterWidgetHeight,
               child: filterList(provider),
             ),
             SizedBox(height: ySpacing),
-            Expanded(child: PractionersListView()),
+            Expanded(child: PractitionersListWidget()),
           ])));
     });
   }
@@ -58,7 +57,7 @@ class PractionersViewState extends State<PractionersSearchResultsView> {
         labelPadding: EdgeInsets.only(left: 2, right: 8, top: 2, bottom: 2),
         label: Text(
           label,
-          style: kSmallWhiteTextStyle,
+          style: SalStyles.smallWhiteTextStyle,
         ),
         backgroundColor: SalColors.blue,
         elevation: 6.0,

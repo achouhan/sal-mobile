@@ -24,7 +24,7 @@ class Review {
         formatedTimeStamp(data['timestamp']), data['text'], data['rating']);
   }
 
-  // Return list of practioner
+  // Return list of practitioner
   static List<Review> fromJsonArray(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString)['reviews'];
 

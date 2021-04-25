@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
-import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PractionerCard extends StatelessWidget {
-  final Practioner practioner;
+class PractitionerCard extends StatelessWidget {
+  final Practitioner practitioner;
 
-  PractionerCard({Key key, this.practioner}) : super(key: key);
+  PractitionerCard({Key key, this.practitioner}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class PractionerCard extends StatelessWidget {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('${this.practioner.rating}',
+                          Text('${this.practitioner.rating}',
                               style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                       fontSize: 12,
@@ -60,7 +60,7 @@ class PractionerCard extends StatelessWidget {
                 children: [
                   SizedBox(height: 24),
                   // Name
-                  Text(practioner.name,
+                  Text(practitioner.name,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               fontSize: 18,
@@ -69,14 +69,14 @@ class PractionerCard extends StatelessWidget {
                   SizedBox(height: 2),
                   Row(
                     children: [
-                      Text(practioner.typeToString(),
+                      Text(practitioner.typeToString(),
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   color: SalColors.steelGrey))),
                       SizedBox(width: 16),
-                      Text('Rs ${practioner.fee}',
+                      Text('Rs ${practitioner.fee}',
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   fontSize: 16,
@@ -86,7 +86,7 @@ class PractionerCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   // Exp
-                  Text(practioner.experience,
+                  Text(practitioner.experience,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               fontSize: 14,
