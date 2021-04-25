@@ -63,19 +63,29 @@ class _PractitionerCalendarViewState extends State<PractitionerCalendarView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            centerTitle: false,
-            backgroundColor: Colors.white,
-            elevation: 0.0,
-            bottomOpacity: 0.0,
-            title: Text("Schedule", style: SalStyles.titleTextStyle),
-            iconTheme: IconThemeData(
-              color: SalColors.black,
-            )),
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: _buildCalendarWidget(),
-        ));
+      appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          bottomOpacity: 0.0,
+          title: Text("Schedule", style: SalStyles.titleTextStyle),
+          iconTheme: IconThemeData(
+            color: SalColors.black,
+          )),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: _buildCalendarWidget(),
+      ),
+      bottomNavigationBar: RoundedButton(
+        title: 'Next',
+        onPressed: () {
+        },
+        color: SalColors.blue,
+        textColor: Colors.white,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        enabled: _selectedTime != null,
+      ),
+    );
   }
 
   Widget _buildCalendarWidget() {
@@ -119,14 +129,6 @@ class _PractitionerCalendarViewState extends State<PractitionerCalendarView> {
           },
           selectedTime: this._selectedTime,
         ),
-        RoundedButton(
-          title: 'Next',
-          onPressed: () {},
-          color: SalColors.blue,
-          textColor: Colors.white,
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          enabled: _selectedTime != null,
-        )
       ]),
     );
   }
