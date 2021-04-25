@@ -1,18 +1,18 @@
 import 'package:sal_patient_client/ui/filters_view.dart';
-import 'package:sal_patient_client/utils/styles.dart';
-import 'package:sal_patient_client/ui/practioners_list_view.dart';
+import 'package:sal_patient_client/ui/practitioners_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sal_patient_client/common/sal_colors.dart';
 
-class PractionersView extends StatefulWidget {
+class PractitionersView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => PractionersViewState();
+  State<StatefulWidget> createState() => PractitionersViewState();
 }
 
-class PractionersViewState extends State<PractionersView> {
+class PractitionersViewState extends State<PractitionersView> {
   final ScrollController _scrollController = ScrollController();
   bool _showFilterButton = false;
-  double _viewHeight = 0;
+  double _widgetHeight = 0;
 
   @override
   void initState() {
@@ -29,14 +29,14 @@ class PractionersViewState extends State<PractionersView> {
 
   @override
   Widget build(BuildContext context) {
-    this._viewHeight = MediaQuery.of(context).size.height;
+    this._widgetHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
           backgroundColor: Colors.white,
           elevation: 0.0,
           bottomOpacity: 0.0,
-          title: Text("Filter Search", style: kTitleTextStyle),
+          title: Text("Filter Search", style: SalStyles.titleTextStyle),
         ),
         floatingActionButton: AnimatedOpacity(
           duration: Duration(milliseconds: 100),
@@ -52,7 +52,7 @@ class PractionersViewState extends State<PractionersView> {
         body: SafeArea(
             child: ListView(controller: this._scrollController, children: [
           FiltersView(),
-          PractionersListView(disableScrolling: true)
+          PractitionersListView(disableScrolling: true)
         ])));
   }
 
@@ -60,11 +60,11 @@ class PractionersViewState extends State<PractionersView> {
     this._scrollController.addListener(() {
       if (this._scrollController.position.userScrollDirection ==
               ScrollDirection.reverse &&
-          this._scrollController.offset >= this._viewHeight / 2) {
+          this._scrollController.offset >= this._widgetHeight / 2) {
         setState(() {
           this._showFilterButton = true;
         });
-      } else if (this._scrollController.offset < this._viewHeight / 2) {
+      } else if (this._scrollController.offset < this._widgetHeight / 2) {
         setState(() {
           this._showFilterButton = false;
         });

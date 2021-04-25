@@ -2,7 +2,7 @@ import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/common/sal_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sal_patient_client/ui/practioners_view.dart';
+import 'package:sal_patient_client/ui/practitioners_view.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
@@ -43,7 +43,7 @@ class _SALAppPageState extends State<SALAppPage> {
 
   final List<Widget> _children = [
     Center(child: Text("Home")),
-    PractionersView(),
+    PractitionersView(),
     Center(child: Text("Explore")),
     Center(child: Text("More"))
   ];

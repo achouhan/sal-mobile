@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
 
 class HttpClient {
   HttpClient._internal();
@@ -10,13 +10,13 @@ class HttpClient {
 
   static HttpClient get shared => _instance;
 
-  Future<List<Practioner>> getPractioners() async {
-    return Practioner.fromJsonArray(jsonEncode(this.mockedJson()));
+  Future<List<Practitioner>> getPractitioners() async {
+    return Practitioner.fromJsonArray(jsonEncode(this.mockedJson()));
   }
 
   Map<String, dynamic> mockedJson() {
     return {
-      "practioners": [
+      "practitioners": [
         {
           "id": "1",
           "name": "Dr. Snehal Mehta",

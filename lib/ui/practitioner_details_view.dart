@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sal_patient_client/Utils/CustomBackgroundView.dart';
-import 'package:sal_patient_client/Utils/rounded_button.dart';
+import 'package:sal_patient_client/ui/practitioner_calendar_view.dart';
+import 'package:sal_patient_client/utils/sal_banner_view.dart';
+import 'package:sal_patient_client/utils/rounded_button.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
-import 'package:sal_patient_client/models/practioner.dart';
-import 'package:sal_patient_client/ui/PractionerReviewList.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
+import 'package:sal_patient_client/ui/practitioner_reviews_list_view.dart';
 
-import 'PractionersOverview.dart';
+import 'practitioners_overview_view.dart';
 
-class PractionerDetailsView extends StatefulWidget {
-  final Practioner practioner;
-  const PractionerDetailsView({Key key, this.practioner}) : super(key: key);
+class PractitionerDetailsView extends StatefulWidget {
+  final Practitioner practitioner;
+  const PractitionerDetailsView({Key key, this.practitioner}) : super(key: key);
 
   @override
-  _PractionerDetailsViewState createState() => _PractionerDetailsViewState();
+  _PractitionerDetailsViewState createState() =>
+      _PractitionerDetailsViewState();
 }
 
-class _PractionerDetailsViewState extends State<PractionerDetailsView>
+class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
@@ -51,7 +53,7 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
           backgroundColor: SalColors.blue,
           elevation: 0.0,
           bottomOpacity: 0.0,
-          title: Text('${this.widget.practioner.typeToString()} Profile',
+          title: Text('${this.widget.practitioner.typeToString()} Profile',
               style: SalStyles.whiteTitleStyle),
         ),
         bottomNavigationBar: BottomAppBar(child: _buildScheduleSection()),
@@ -59,7 +61,7 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _imageCard(context),
-            Text('${this.widget.practioner.name}',
+            Text('${this.widget.practitioner.name}',
                 style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                         fontSize: 18,
@@ -86,9 +88,10 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
             SizedBox(height: 8),
             Expanded(
                 child: (this._currentIndex == 0)
-                    ? PractionerOverview(practioner: this.widget.practioner)
-                    : PractionerReviewList(
-                        reviews: widget.practioner.reviews())),
+                    ? PractitionerOverview(
+                        practitioner: this.widget.practitioner)
+                    : PractitionerReviewList(
+                        reviews: widget.practitioner.reviews())),
           ],
         ));
   }
@@ -99,14 +102,14 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('${this.widget.practioner.typeToString()}',
+        Text('${this.widget.practitioner.typeToString()}',
             style: GoogleFonts.openSans(
                 textStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: SalColors.steelGrey))),
         SizedBox(width: 8),
-        Text('${this.widget.practioner.rating}',
+        Text('${this.widget.practitioner.rating}',
             style: GoogleFonts.openSans(
                 textStyle: TextStyle(
                     fontSize: 16,
@@ -131,7 +134,7 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
       child: Stack(
         children: [
           Container(
-              height: _height, width: _width, child: CustomBackgroundView()),
+              height: _height, width: _width, child: SalThemeBannerView()),
           Positioned(
               top: (_height - 100) / 2,
               left: (_width - 100) / 2,
@@ -159,7 +162,7 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
               fit: BoxFit.fill,
               color: SalColors.blue,
             ),
-            Text('${this.widget.practioner.fee}',
+            Text('${this.widget.practitioner.fee}',
                 style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                         fontSize: 20,
@@ -175,7 +178,14 @@ class _PractionerDetailsViewState extends State<PractionerDetailsView>
             Expanded(
               child: RoundedButton(
                 title: 'SCHEDULE',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PractitionerCalendarView(
+                                practitioner: this.widget.practitioner,
+                              )));
+                },
                 color: SalColors.blue,
                 textColor: Colors.white,
               ),

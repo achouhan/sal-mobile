@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/providers/filters_provider.dart';
-import 'package:sal_patient_client/models/practioner.dart';
-import 'package:sal_patient_client/ui/practioners_search_results_view.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
+import 'package:sal_patient_client/ui/practitioners_search_results_view.dart';
 import 'package:sal_patient_client/utils/rounded_button.dart';
 
 class FiltersView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _FiltersViewState extends State<FiltersView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: FiltersProvider.getAllPractioners()
+              children: FiltersProvider.getAllPractitioners()
                   .map((type) => buildToggleButton(type, provider))
                   .toList(),
             ),
@@ -63,7 +63,7 @@ class _FiltersViewState extends State<FiltersView> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PractionersSearchResultsView()));
+                    builder: (context) => PractitionersSearchResultsView()));
           },
           color: SalColors.blue,
           textColor: Colors.white,
@@ -142,7 +142,7 @@ class _FiltersViewState extends State<FiltersView> {
   }
 
   GestureDetector buildToggleButton(
-      PractionerType type, FiltersProvider provider) {
+      PractitionerType type, FiltersProvider provider) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -159,7 +159,7 @@ class _FiltersViewState extends State<FiltersView> {
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: Center(
           child: Text(
-              type == PractionerType.counsellor ? "Counsellor" : "Listener",
+              type == PractitionerType.counsellor ? "Counsellor" : "Listener",
               style: GoogleFonts.openSans(
                   textStyle: TextStyle(
                       fontSize: 14,

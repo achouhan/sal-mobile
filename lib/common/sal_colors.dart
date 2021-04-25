@@ -18,4 +18,24 @@ class SalStyles {
   static TextStyle whiteTitleStyle = GoogleFonts.openSans(
       textStyle: TextStyle(
           fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white));
+
+  static TextStyle titleTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 22, fontWeight: FontWeight.w600, color: SalColors.black));
+
+  static TextStyle smallWhiteTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white));
+
+  static TextStyle subTitleTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w600, color: SalColors.black));
+
+  static TextStyle normalTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 14, fontWeight: FontWeight.w600, color: SalColors.black));
+
+  static TextStyle disableTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 14, fontWeight: FontWeight.w600, color: SalColors.grey));
 }

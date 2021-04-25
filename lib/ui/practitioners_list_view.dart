@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:sal_patient_client/models/practioner.dart';
+import 'package:sal_patient_client/models/practitioner.dart';
 import 'package:sal_patient_client/network/http_client.dart';
-import 'package:sal_patient_client/ui/practioner_card.dart';
-import 'package:sal_patient_client/ui/practioner_details_view.dart';
+import 'package:sal_patient_client/ui/practitioner_card_view.dart';
+import 'package:sal_patient_client/ui/practitioner_details_view.dart';
 
-class PractionersListView extends StatefulWidget {
+class PractitionersListView extends StatefulWidget {
   final bool disableScrolling;
 
-  const PractionersListView({Key key, this.disableScrolling}) : super(key: key);
+  const PractitionersListView({Key key, this.disableScrolling})
+      : super(key: key);
 
   @override
-  _PractionersListViewState createState() => _PractionersListViewState();
+  _PractitionersListViewState createState() => _PractitionersListViewState();
 }
 
-class _PractionersListViewState extends State<PractionersListView> {
+class _PractitionersListViewState extends State<PractitionersListView> {
   // Constants
   final xPaddding = 16.0;
   final yPaddding = 4.0;
 
-  Future<List<Practioner>> _practioners;
+  Future<List<Practitioner>> _practitioners;
 
   @override
   void initState() {
     super.initState();
-    this._practioners = HttpClient.shared.getPractioners();
+    this._practitioners = HttpClient.shared.getPractitioners();
   }
 
   @override
@@ -31,8 +32,8 @@ class _PractionersListViewState extends State<PractionersListView> {
     return Container(
       color: Colors.white,
       child: FutureBuilder(
-          future: this._practioners,
-          builder: (context, AsyncSnapshot<List<Practioner>> snapshot) {
+          future: this._practitioners,
+          builder: (context, AsyncSnapshot<List<Practitioner>> snapshot) {
             assert(context != null);
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -55,12 +56,12 @@ class _PractionersListViewState extends State<PractionersListView> {
                         : null,
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, idx) {
-                      Practioner practioner = snapshot.data[idx];
+                      Practitioner practitioner = snapshot.data[idx];
                       return Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: this.yPaddding,
                             horizontal: this.xPaddding),
-                        child: buildCard(practioner),
+                        child: buildCard(practitioner),
                       );
                     });
             }
@@ -68,16 +69,16 @@ class _PractionersListViewState extends State<PractionersListView> {
     );
   }
 
-  InkWell buildCard(Practioner practioner) {
+  InkWell buildCard(Practitioner practitioner) {
     return InkWell(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PractionerDetailsView(
-                        practioner: practioner,
+                  builder: (context) => PractitionerDetailsView(
+                        practitioner: practitioner,
                       )));
         },
-        child: PractionerCard(practioner: practioner));
+        child: PractitionerCard(practitioner: practitioner));
   }
 }

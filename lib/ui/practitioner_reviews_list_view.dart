@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
-import 'package:sal_patient_client/models/Review.dart';
+import 'package:sal_patient_client/models/review.dart';
 
-class PractionerReviewList extends StatelessWidget {
+class PractitionerReviewList extends StatelessWidget {
   // Constants
   final xPaddding = 16.0;
   final yPaddding = 4.0;
 
   final List<Review> reviews;
   // Constructor
-  const PractionerReviewList({Key key, this.reviews}) : super(key: key);
+  const PractitionerReviewList({Key key, this.reviews}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
