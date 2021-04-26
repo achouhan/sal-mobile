@@ -38,4 +38,8 @@ class SalStyles {
   static TextStyle disableTextStyle = GoogleFonts.openSans(
       textStyle: TextStyle(
           fontSize: 14, fontWeight: FontWeight.w600, color: SalColors.grey));
+
+  static TextStyle hyperLinkTextStyle = GoogleFonts.openSans(
+      textStyle: TextStyle(
+          fontSize: 14, fontWeight: FontWeight.bold, color: SalColors.blue));
 }
