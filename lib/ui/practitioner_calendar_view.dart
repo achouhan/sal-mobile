@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/models/practitioner.dart';
+import 'package:sal_patient_client/ui/client_details_input_view.dart';
 import 'package:sal_patient_client/utils/rounded_button.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -79,6 +80,12 @@ class _PractitionerCalendarViewState extends State<PractitionerCalendarView> {
       bottomNavigationBar: RoundedButton(
         title: 'Next',
         onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ClientDetailsInputView(
+                        isLoggedIn: false,
+                      )));
         },
         color: SalColors.blue,
         textColor: Colors.white,
