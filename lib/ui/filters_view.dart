@@ -315,27 +315,28 @@ class _FiltersViewState extends State<FiltersView> {
             height: 18,
           ),
           Text(
-            '${Provider.of<FiltersProvider>(context, listen: false).getPrice()}',
+            '${Provider.of<FiltersProvider>(context, listen: false).displayPriceRange()}',
             style: GoogleFonts.openSans(
                 textStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: SalColors.grey)),
+                    color: SalColors.steelGrey)),
           ),
         ]),
-        Slider(
-          value: Provider.of<FiltersProvider>(context, listen: false).getPrice().ceilToDouble(),
-          min: 0,
-          max: 5000,
-          divisions: 100,
-          activeColor: SalColors.blue,
-          inactiveColor: SalColors.grey,
-          onChanged: (double value) {
-            setState(() {
-              Provider.of<FiltersProvider>(context, listen: false).setPrice(value);
-            });
-          },
-        )
+        RangeSlider(
+            min: 0,
+            max: 5000.0,
+            divisions: 100,
+            activeColor: SalColors.blue,
+            inactiveColor: SalColors.grey,
+            values:
+                Provider.of<FiltersProvider>(context, listen: false).priceRange,
+            onChanged: (value) {
+              setState(() {
+                Provider.of<FiltersProvider>(context, listen: false)
+                    .priceRange = value;
+              });
+            })
       ],
     );
   }

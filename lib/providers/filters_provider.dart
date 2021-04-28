@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 class FiltersProvider extends ChangeNotifier {
   final filters = Map<String, dynamic>();
   final types = Set<PractitionerType>();
-  double _price = 0;
+
+  RangeValues priceRange = RangeValues(0, 0);
 
   // List of topics
   List<String> _topics;
@@ -41,9 +42,10 @@ class FiltersProvider extends ChangeNotifier {
     PractitionerType matchedType;
 
     /// NOTE: Need to revisit filter logic again
-    if (filterValue == '< ' + this._price.toString()) {
-      this._price = 0;
+    if (filterValue == this.displayPriceRange()) {
+      this.priceRange = RangeValues(0, 0);
     }
+
     // Check type first
     for (var type in this.types) {
       if (Utils.describeEnum(type.toString()) == filterValue) {
@@ -98,8 +100,9 @@ class FiltersProvider extends ChangeNotifier {
       displayLabels.add(element as String);
     });
 
-    if (this._price > 0) {
-      displayLabels.add('< ' + this._price.toString());
+    String priceRange = this.displayPriceRange();
+    if (priceRange != '0-0') {
+      displayLabels.add(priceRange);
     }
 
     return displayLabels;
@@ -151,17 +154,19 @@ class FiltersProvider extends ChangeNotifier {
       }
     }
 
-    if (this._price > 0) {
-      _queryFilters['price'] = '0' + ',' + this._price.toString();
+    if (this.priceRange.end > 0) {
+      _queryFilters['price'] = this.priceRange.start.ceil().toString() +
+          ',' +
+          this.priceRange.end.ceil().toString();
     }
 
     return _queryFilters;
   }
 
-  int getPrice() => this._price.ceil();
-
-  void setPrice(double price) {
-    this._price = price;
+  String displayPriceRange() {
+    return this.priceRange.start.ceil().toString() +
+        '-' +
+        this.priceRange.end.ceil().toString();
   }
 
   // All supported topics
