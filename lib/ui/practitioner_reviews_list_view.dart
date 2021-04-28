@@ -31,7 +31,6 @@ class PractitionerReviewList extends StatelessWidget {
     return Card(
         elevation: 0.0,
         child: Container(
-          height: 157,
           padding: EdgeInsets.all(8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +62,7 @@ class PractitionerReviewList extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${review.reviewer}',
+                  Text('${review.name}',
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               fontSize: 14,
@@ -77,7 +76,7 @@ class PractitionerReviewList extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: review.rating.ceil(),
+                        itemCount: double.parse(review.rating).ceil(),
                         itemBuilder: (context, idx) {
                           return Image.asset(
                             "assets/images/rating.png",
@@ -91,7 +90,7 @@ class PractitionerReviewList extends StatelessWidget {
               ),
               Spacer(),
               // SizedBox(width: 40),
-              Text('${review.timeStamp}',
+              Text('${review.modifiedAt}',
                   style: GoogleFonts.openSans(
                       textStyle: TextStyle(
                           fontSize: 10,
@@ -100,16 +99,16 @@ class PractitionerReviewList extends StatelessWidget {
             ],
           ),
           SizedBox(width: 8),
-          _buildTextSection(review),
+          _buildCommentSection(review),
         ],
       ),
     );
   }
 
-  Container _buildTextSection(Review review) {
+  Container _buildCommentSection(Review review) {
     return Container(
       width: 274,
-      child: Text('${review.text}',
+      child: Text('${review.comment}',
           maxLines: 4,
           overflow: TextOverflow.ellipsis,
           style: GoogleFonts.openSans(

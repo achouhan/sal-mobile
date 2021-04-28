@@ -1,46 +1,33 @@
 // Review class
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
-
 class Review {
-  final String id;
-  final String reviewer;
-  final String timeStamp;
-  final String text;
-  final double rating;
+  final String comment;
+  final String firstName;
+  final String lastName;
+  final String modifiedAt;
+  final String rating;
 
-  Review(
-    this.id,
-    this.reviewer,
-    this.timeStamp,
-    this.text,
-    this.rating,
-  );
+  String get name => this.firstName + ' ' + this.lastName;
+
+  Review(this.comment, this.firstName, this.lastName, this.modifiedAt,
+      this.rating);
 
   static Review fromJson(String jsonString) {
     final Map<String, dynamic> data = jsonDecode(jsonString);
-    return Review(data['id'], data['reviewer'],
-        formatedTimeStamp(data['timestamp']), data['text'], data['rating']);
+    return Review(data['comment'], data['first_name'], data['last_name'],
+        data['modified_at'], data['rating']);
   }
 
   // Return list of practitioner
-  static List<Review> fromJsonArray(String jsonString) {
-    final Iterable<dynamic> data = jsonDecode(jsonString)['reviews'];
-
-    return data
+  static List<Review> fromJsonArray(List<dynamic> jsonArray) {
+    return jsonArray
         .map<Review>((dynamic value) => Review(
-            value['id'],
-            value['reviewer'],
-            formatedTimeStamp(value['timestamp']),
-            value['text'],
+            value['comment'],
+            value['first_name'],
+            value['last_name'],
+            value['modified_at'],
             value['rating']))
         .toList();
-  }
-
-  static String formatedTimeStamp(String timestamp) {
-    DateTime _datetime = DateTime.parse(timestamp);
-    String _formatedTimeStamp = new DateFormat('DD MMM yy').format(_datetime);
-    return _formatedTimeStamp;
   }
 }

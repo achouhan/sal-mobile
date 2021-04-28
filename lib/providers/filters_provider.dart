@@ -1,36 +1,37 @@
 import 'package:sal_patient_client/models/practitioner.dart';
+import 'package:sal_patient_client/network/metadata_repository.dart';
 import 'package:sal_patient_client/utils/utils.dart';
+import 'package:sal_patient_client/models/Metadata.dart';
 import 'package:flutter/material.dart';
 
 class FiltersProvider extends ChangeNotifier {
   final filters = Map<String, dynamic>();
   final types = Set<PractitionerType>();
+  double _price = 0;
 
-  // List of possible topics(Hard coded for now)
-  static final _topics = [
-    'Anxiety Management',
-    'Stress - Work / Personal Relationship',
-    'Depression',
-    'Anger Management',
-    'Parenting',
-    'Teenage Tantrums',
-    'Grief / Trauma',
-    'Self-Improvement / Motivation',
-    'Life Coaching',
-    'Others'
-  ];
+  // List of topics
+  List<String> _topics;
 
   // List of supported languages
-  static final _languages = [
-    'English',
-    'Hindi',
-  ];
+  List<String> _languages;
+
+  // Metadata
+  Metadata _metadata;
 
   // List of all practitioners
   static final _practitionerTypes = [
     PractitionerType.counsellor,
     PractitionerType.listener,
   ];
+
+  Future<void> loadMetadata(MetadataRepository metadataRepository) async {
+    this._metadata = await metadataRepository.getMetadata();
+    // Populate topics
+    this._topics = this._metadata.topics.map((value) => value.label).toList();
+    // Populate languages
+    this._languages =
+        this._metadata.languages.map((value) => value.label).toList();
+  }
 
   dynamic filter(String key) => this.filters[key];
 
@@ -39,6 +40,10 @@ class FiltersProvider extends ChangeNotifier {
   void delete(String filterValue) {
     PractitionerType matchedType;
 
+    /// NOTE: Need to revisit filter logic again
+    if (filterValue == '< ' + this._price.toString()) {
+      this._price = 0;
+    }
     // Check type first
     for (var type in this.types) {
       if (Utils.describeEnum(type.toString()) == filterValue) {
@@ -65,6 +70,17 @@ class FiltersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteAll() {
+    this.filters.clear();
+    this.types.clear();
+
+    notifyListeners();
+  }
+
+  void refresh() {
+    notifyListeners();
+  }
+
   // Returns count of filters
   int count() => this.filters.length;
 
@@ -81,6 +97,10 @@ class FiltersProvider extends ChangeNotifier {
     this.filters.values.forEach((element) {
       displayLabels.add(element as String);
     });
+
+    if (this._price > 0) {
+      displayLabels.add('< ' + this._price.toString());
+    }
 
     return displayLabels;
   }
@@ -105,11 +125,50 @@ class FiltersProvider extends ChangeNotifier {
     }
   }
 
+  Map<String, dynamic> getQueryFilters() {
+    var _queryFilters = Map<String, dynamic>();
+    if (this.types.length == 1) {
+      _queryFilters["type"] = this.types.first.index.toString();
+    }
+
+    for (var key in this.filters.keys) {
+      if (key == 'language') {
+        for (var language in this._metadata.languages) {
+          if (language.label == this.filters[key]) {
+            _queryFilters[key] = language.id.toString();
+            break;
+          }
+        }
+      } else if (key == 'topic') {
+        for (var topic in this._metadata.topics) {
+          if (topic.label == this.filters[key]) {
+            _queryFilters[key] = topic.id.toString();
+            break;
+          }
+        }
+      } else {
+        _queryFilters[key] = this.filters[key];
+      }
+    }
+
+    if (this._price > 0) {
+      _queryFilters['price'] = '0' + ',' + this._price.toString();
+    }
+
+    return _queryFilters;
+  }
+
+  int getPrice() => this._price.ceil();
+
+  void setPrice(double price) {
+    this._price = price;
+  }
+
   // All supported topics
-  static List<String> getAllTopics() => _topics;
+  List<String> getAllTopics() => _topics;
 
   // All languages
-  static List<String> getAllLanguages() => _languages;
+  List<String> getAllLanguages() => _languages;
 
   // All practitioners
   static List<PractitionerType> getAllPractitioners() => _practitionerTypes;

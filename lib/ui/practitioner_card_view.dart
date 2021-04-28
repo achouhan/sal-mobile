@@ -22,6 +22,7 @@ class PractitionerCard extends StatelessWidget {
                 width: 84,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
+                    //child: Image.network(this.practitioner.photoUrl),
                     color: SalColors.grey),
               ),
               Positioned(
@@ -38,7 +39,7 @@ class PractitionerCard extends StatelessWidget {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('${this.practitioner.rating}',
+                          Text('${this.practitioner.averageRating}',
                               style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                       fontSize: 12,
@@ -76,7 +77,7 @@ class PractitionerCard extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   color: SalColors.steelGrey))),
                       SizedBox(width: 16),
-                      Text('Rs ${practitioner.fee}',
+                      Text('Rs ${practitioner.price}',
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   fontSize: 16,
@@ -87,6 +88,8 @@ class PractitionerCard extends StatelessWidget {
                   SizedBox(height: 4),
                   // Exp
                   Text(practitioner.experience,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               fontSize: 14,

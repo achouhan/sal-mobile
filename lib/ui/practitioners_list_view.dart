@@ -1,13 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sal_patient_client/models/practitioner.dart';
-import 'package:sal_patient_client/network/http_client.dart';
+import 'package:sal_patient_client/network/practitioner_repository.dart';
 import 'package:sal_patient_client/ui/practitioner_card_view.dart';
 import 'package:sal_patient_client/ui/practitioner_details_view.dart';
 
 class PractitionersListView extends StatefulWidget {
   final bool disableScrolling;
+  final Map<String, dynamic> filters;
 
-  const PractitionersListView({Key key, this.disableScrolling})
+  const PractitionersListView({Key key, this.disableScrolling, this.filters})
       : super(key: key);
 
   @override
@@ -24,7 +28,21 @@ class _PractitionersListViewState extends State<PractitionersListView> {
   @override
   void initState() {
     super.initState();
-    this._practitioners = HttpClient.shared.getPractitioners();
+    this._practitioners =
+        Provider.of<PractitionerRepository>(context, listen: false)
+            .getPractitioners(0, this.widget.filters);
+  }
+
+  @override
+  void didUpdateWidget(covariant PractitionersListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!mapEquals(oldWidget.filters, this.widget.filters)) {
+      setState(() {
+        this._practitioners =
+            Provider.of<PractitionerRepository>(context, listen: false)
+                .getPractitioners(0, this.widget.filters);
+      });
+    }
   }
 
   @override
@@ -45,7 +63,21 @@ class _PractitionersListViewState extends State<PractitionersListView> {
                   return Text(
                       "Failed to download the data error ${snapshot.error}.");
                 } else if (!snapshot.hasData) {
-                  return Text("Invalid data returned");
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text("Invalid data returned."),
+                  );
+                } else if (snapshot.data.length == 0) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                        "No Practitioner was found. Please update your search criteria.",
+                        style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black))),
+                  );
                 }
 
                 // // Success case

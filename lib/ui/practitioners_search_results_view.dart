@@ -15,28 +15,33 @@ class PractitionersViewState extends State<PractitionersSearchResultsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FiltersProvider>(builder: (context, provider, child) {
-      return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: SalColors.black,
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0.0,
-            bottomOpacity: 0.0,
-            title: Text("Search Results", style: SalStyles.titleTextStyle),
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: SalColors.black,
           ),
-          body: SafeArea(
-              child: Column(children: [
-            Container(
-              margin: EdgeInsets.all(ySpacing),
-              // height: this.filterWidgetHeight,
-              child: filterList(provider),
-            ),
-            SizedBox(height: ySpacing),
-            Expanded(child: PractitionersListView()),
-          ])));
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          bottomOpacity: 0.0,
+          title: Text("Search Results", style: SalStyles.titleTextStyle),
+        ),
+        body: SafeArea(child: _listView(context)));
+    //   });
+  }
+
+  _listView(BuildContext context) {
+    return Consumer<FiltersProvider>(builder: (context, provider, child) {
+      return Column(children: [
+        Container(
+          margin: EdgeInsets.all(ySpacing),
+          child: filterList(provider),
+        ),
+        SizedBox(height: ySpacing),
+        Expanded(
+            child: PractitionersListView(
+                disableScrolling: false, filters: provider.getQueryFilters())),
+      ]);
     });
   }
 

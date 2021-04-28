@@ -38,7 +38,9 @@ class _ClientDetailsInputViewState extends State<ClientDetailsInputView> {
           iconTheme: IconThemeData(
             color: SalColors.black,
           )),
-      body: Center(child: body()),
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [SizedBox(height: 20), body()]),
       bottomNavigationBar: RoundedButton(
         title: 'Next',
         onPressed: () {},

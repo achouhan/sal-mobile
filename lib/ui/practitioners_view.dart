@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+import 'package:sal_patient_client/providers/filters_provider.dart';
 import 'package:sal_patient_client/ui/filters_view.dart';
 import 'package:sal_patient_client/ui/practitioners_list_view.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class PractitionersViewState extends State<PractitionersView> {
   final ScrollController _scrollController = ScrollController();
   bool _showFilterButton = false;
   double _widgetHeight = 0;
+
 
   @override
   void initState() {
@@ -30,6 +33,7 @@ class PractitionersViewState extends State<PractitionersView> {
   @override
   Widget build(BuildContext context) {
     this._widgetHeight = MediaQuery.of(context).size.height;
+    return Consumer<FiltersProvider>(builder: (context, provider, child) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -52,8 +56,9 @@ class PractitionersViewState extends State<PractitionersView> {
         body: SafeArea(
             child: ListView(controller: this._scrollController, children: [
           FiltersView(),
-          PractitionersListView(disableScrolling: true)
+          new PractitionersListView(disableScrolling: true, filters:provider.getQueryFilters())
         ])));
+    });
   }
 
   void setupScrollViewController() async {

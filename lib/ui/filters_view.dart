@@ -50,7 +50,9 @@ class _FiltersViewState extends State<FiltersView> {
       Expanded(
         child: RoundedButton(
           title: 'CLEAR',
-          onPressed: () {},
+          onPressed: () {
+            Provider.of<FiltersProvider>(context, listen: false).deleteAll();
+          },
           color: Colors.white,
           textColor: SalColors.grey,
         ),
@@ -59,11 +61,12 @@ class _FiltersViewState extends State<FiltersView> {
       Expanded(
         child: RoundedButton(
           title: 'SEARCH',
-          onPressed: () {
-            Navigator.push(
+          onPressed: () async {
+            final value = await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => PractitionersSearchResultsView()));
+            Provider.of<FiltersProvider>(context, listen: false).refresh();
           },
           color: SalColors.blue,
           textColor: Colors.white,
@@ -104,7 +107,8 @@ class _FiltersViewState extends State<FiltersView> {
                   icon: Icon(Icons.keyboard_arrow_down),
                   elevation: 8,
                   iconSize: 24,
-                  items: FiltersProvider.getAllTopics()
+                  items: Provider.of<FiltersProvider>(context, listen: false)
+                      .getAllTopics()
                       .map((value) =>
                           DropdownMenuItem(child: Text(value), value: value))
                       .toList(),
@@ -193,7 +197,9 @@ class _FiltersViewState extends State<FiltersView> {
           children: [
             _languageSection(provider),
             SizedBox(height: 8),
-            _dateSection()
+            _dateSection(),
+            SizedBox(height: 20),
+            _priceRow()
           ],
           onExpansionChanged: (bool expanded) {
             setState(() {
@@ -235,12 +241,15 @@ class _FiltersViewState extends State<FiltersView> {
                   icon: Icon(Icons.keyboard_arrow_down),
                   elevation: 8,
                   iconSize: 24,
-                  items: FiltersProvider.getAllLanguages()
+                  items: Provider.of<FiltersProvider>(context, listen: false)
+                      .getAllLanguages()
                       .map((value) =>
                           DropdownMenuItem(child: Text(value), value: value))
                       .toList(),
                   onChanged: (String newValue) {
-                    provider.setLanguage(newValue);
+                    setState(() {
+                      provider.setLanguage(newValue);
+                    });
                   },
                 ),
               ))
@@ -282,6 +291,52 @@ class _FiltersViewState extends State<FiltersView> {
               ))
         ],
       ),
+    );
+  }
+
+  Widget _priceRow() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Expanded(
+            child: Text(
+              "Price",
+              style: GoogleFonts.openSans(
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: SalColors.blue)),
+            ),
+          ),
+          Image.asset(
+            "assets/images/rupee.png",
+            width: 18,
+            height: 18,
+          ),
+          Text(
+            '${Provider.of<FiltersProvider>(context, listen: false).getPrice()}',
+            style: GoogleFonts.openSans(
+                textStyle: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: SalColors.grey)),
+          ),
+        ]),
+        Slider(
+          value: Provider.of<FiltersProvider>(context, listen: false).getPrice().ceilToDouble(),
+          min: 0,
+          max: 5000,
+          divisions: 100,
+          activeColor: SalColors.blue,
+          inactiveColor: SalColors.grey,
+          onChanged: (double value) {
+            setState(() {
+              Provider.of<FiltersProvider>(context, listen: false).setPrice(value);
+            });
+          },
+        )
+      ],
     );
   }
 

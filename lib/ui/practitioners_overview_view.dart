@@ -3,8 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sal_patient_client/common/sal_colors.dart';
 import 'package:sal_patient_client/models/practitioner.dart';
-
-import '../utils/expandable_text.dart';
+import 'package:expandable_text/expandable_text.dart';
 
 class PractitionerOverview extends StatelessWidget {
   final Practitioner practitioner;
@@ -25,28 +24,33 @@ class PractitionerOverview extends StatelessWidget {
                       color: SalColors.blue))),
           SizedBox(height: 8),
           Container(
-              width: 355,
-              child:
-                  ExpandableText(maxLines: 3, text: this.practitioner.aboutMe)),
+              width: MediaQuery.of(context).size.width - 40,
+              child: ExpandableText(this.practitioner.about,
+                  expandText: 'more',
+                  collapseText: 'less',
+                  maxLines: 5,
+                  linkColor: SalColors.blue)),
           // Exp section
           SizedBox(height: 20),
-          _buildInformationSection('Experience', this.practitioner.experience),
+          _buildInformationSection(
+              context, 'Experience', this.practitioner.experience),
 
           // Speciality section
           SizedBox(height: 20),
           _buildInformationSection(
-              'Speciality', this.practitioner.speciality.join(", ")),
+              context, 'Speciality', this.practitioner.topics.join(", ")),
 
           // Language section
           SizedBox(height: 20),
           _buildInformationSection(
-              'Language', this.practitioner.languages.join(", ")),
+              context, 'Language', this.practitioner.languages.join(", ")),
         ]),
       ),
     );
   }
 
-  Widget _buildInformationSection(String title, String subTitle) {
+  Widget _buildInformationSection(
+      BuildContext context, String title, String subTitle) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,12 +72,17 @@ class PractitionerOverview extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: SalColors.blue))),
             SizedBox(height: 4.0),
-            Text(subTitle,
-                style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: SalColors.steelGrey))),
+            Container(
+              width: MediaQuery.of(context).size.width - 84,
+              child: Text(subTitle,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: SalColors.steelGrey))),
+            ),
           ],
         ),
       ],

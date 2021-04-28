@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:sal_patient_client/network/practitioner_repository.dart';
 import 'package:sal_patient_client/ui/practitioner_calendar_view.dart';
 import 'package:sal_patient_client/utils/sal_banner_view.dart';
 import 'package:sal_patient_client/utils/rounded_button.dart';
@@ -11,7 +13,8 @@ import 'practitioners_overview_view.dart';
 
 class PractitionerDetailsView extends StatefulWidget {
   final Practitioner practitioner;
-  const PractitionerDetailsView({Key key, this.practitioner}) : super(key: key);
+
+  PractitionerDetailsView({Key key, this.practitioner}) : super(key: key);
 
   @override
   _PractitionerDetailsViewState createState() =>
@@ -22,7 +25,7 @@ class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
-
+  Future<void> _future;
   @override
   void initState() {
     this._tabController =
@@ -33,6 +36,10 @@ class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
         this._currentIndex = this._tabController.index;
       });
     });
+
+    this._future = Provider.of<PractitionerRepository>(context, listen: false)
+        .getPractitionerDetails(this.widget.practitioner);
+
     super.initState();
   }
 
@@ -86,12 +93,27 @@ class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
                   ]),
             ),
             SizedBox(height: 8),
-            Expanded(
-                child: (this._currentIndex == 0)
-                    ? PractitionerOverview(
-                        practitioner: this.widget.practitioner)
-                    : PractitionerReviewList(
-                        reviews: widget.practitioner.reviews())),
+            FutureBuilder(
+                future: this._future,
+                builder: (context, snapshot) {
+                  assert(context != null);
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                      return Expanded(
+                          child: Center(child: CircularProgressIndicator()));
+                    case ConnectionState.done:
+                      if (!snapshot.hasError) {
+                        return Expanded(
+                            child: (this._currentIndex == 0)
+                                ? PractitionerOverview(
+                                    practitioner: this.widget.practitioner)
+                                : PractitionerReviewList(
+                                    reviews: widget.practitioner.reviews));
+                      }
+                  }
+                })
           ],
         ));
   }
@@ -109,7 +131,7 @@ class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
                     fontWeight: FontWeight.w400,
                     color: SalColors.steelGrey))),
         SizedBox(width: 8),
-        Text('${this.widget.practitioner.rating}',
+        Text('${this.widget.practitioner.totalRating}',
             style: GoogleFonts.openSans(
                 textStyle: TextStyle(
                     fontSize: 16,
@@ -162,7 +184,7 @@ class _PractitionerDetailsViewState extends State<PractitionerDetailsView>
               fit: BoxFit.fill,
               color: SalColors.blue,
             ),
-            Text('${this.widget.practitioner.fee}',
+            Text('${this.widget.practitioner.price}',
                 style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                         fontSize: 20,
